@@ -4,12 +4,12 @@
 #include"EdgeList.h"
 typedef int Elem;										// list base element type
 
-class Node;
+
 class VertexList;
 
 struct Vertex {
 	Elem x;
-	Node* position;
+	Vertex* position;
 	VertexList* IncidenceCollection;
 };
 
