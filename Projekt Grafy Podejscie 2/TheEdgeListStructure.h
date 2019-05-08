@@ -4,6 +4,8 @@
 #include"Edgelist.h"
 
 class TheEdgeListStructure {
+	unsigned vertices;
+	unsigned edges;
 
 };
 #endif

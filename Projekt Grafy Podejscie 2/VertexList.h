@@ -1,10 +1,16 @@
 #pragma once
 #ifndef VERTEXLIST
 #define VERTEXLIST
+#include"EdgeList.h"
 typedef int Elem;										// list base element type
+
+class Node;
+class VertexList;
 
 struct Vertex {
 	Elem x;
+	Node* position;
+	VertexList* IncidenceCollection;
 };
 
 class VertexList {										//node-based list

@@ -2,7 +2,7 @@
 #include"list.h"
 #include"EdgeList.h"
 #include"VertexList.h"
-//#include"AdjacencyList.h"
+#include"AdjacencyList.h"
 //#include"AdjacencyList.h"
 int main()
 {

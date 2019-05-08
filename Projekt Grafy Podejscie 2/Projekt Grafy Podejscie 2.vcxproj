@@ -121,6 +121,7 @@
     <ClInclude Include="AdjacencyList.h" />
     <ClInclude Include="EdgeList.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="listtemplate.h" />
     <ClInclude Include="TheEdgeListStructure.h" />
     <ClInclude Include="VertexList.h" />
   </ItemGroup>
