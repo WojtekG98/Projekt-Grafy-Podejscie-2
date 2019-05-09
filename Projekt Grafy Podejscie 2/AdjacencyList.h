@@ -58,6 +58,7 @@ void AdjacencyList::insertVertex(Elem o)
 	//std::cout <<"insertvertex: "<< &AdList[IW] << std::endl;
 	v.IncidenceCollection = &AdList[IW];
 	V.insertBack(v);
+	(--V.end()).operator*().position= &(*(--V.end()));
 	v.position = &(*(--V.end()));
 	IW++;
 }
@@ -71,10 +72,13 @@ void AdjacencyList::insertEdge(Vertex &v, Vertex &w, Elem o)
 	//std::wcout << "w.x: " << w.x << std::endl;
 	e.vertex[1] = &w;
 	v.IncidenceCollection->insertBack(w);
+	//std::wcout << "Ilosc sasiadow: " << v.IncidenceCollection->size() << " wierzcholka "<<v.x<<" : " << --v.IncidenceCollection->end().operator*().x << std::endl;
 	w.IncidenceCollection->insertBack(v);
+	//std::wcout << "Ilosc sasiadow: " << w.IncidenceCollection->size() << "Sasiad " << w.x << " : " << --w.IncidenceCollection->end().operator*().x << std::endl;
 	e.IncidenceCollection[0] = v.IncidenceCollection;
 	e.IncidenceCollection[1] = w.IncidenceCollection;
 	E.insertBack(e);
+	(--E.end()).operator*().position = &(*(--E.end()));
 	e.position = &(*(--E.end()));
 	m++;
 }

@@ -9,7 +9,7 @@ class VertexList;
 
 struct Vertex {
 	Elem x;
-	Vertex* position;
+	Vertex* position;//zmienic na VertexList::Iterator* position;!!!!
 	VertexList* IncidenceCollection;
 };
 

@@ -8,7 +8,7 @@ typedef int Elem;										// list base element type
 struct Edge {
 	Elem x;
 	Vertex* vertex[2];
-	Edge* position;
+	Edge* position;//zmienic na EdgeList::Iterator* position;!!!!
 	VertexList* IncidenceCollection[2];
 };
 
