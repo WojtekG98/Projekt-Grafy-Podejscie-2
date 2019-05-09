@@ -27,7 +27,7 @@ public:
 		bool operator!=(const Iterator& p) const;
 		Iterator& operator++();							// move to next position
 		Iterator& operator--();							// move to previous position
-		friend class EdgeList;							// give NodeList access
+		friend class EdgeList;							// give EdgeList access
 	private:
 		Node* v;										// pointer to the node
 		Iterator(Node* u);								// create from node
