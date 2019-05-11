@@ -6,12 +6,16 @@
 #include"VertexMList.h"
 #include"AdjacencyList.h"
 #include"AdjacencyMatrix.h"
+#include"ListPriorityQueue.h"
+#include"Algorytmy.h"
 
 int main()
 {
-	unsigned IloscWierzcholkow=50;
-	unsigned IloscKrawedzi = 50;
+	unsigned IloscWierzcholkow=5;
+	unsigned IloscKrawedzi = 5;
 
+	ListPriorityQueue<VertexMList, VertexM, int>  kolejkaV;
+	ListPriorityQueue<EdgeMList, EdgeM, int>  kolejkaE;
 	AdjacencyMatrix graf(IloscWierzcholkow);
 	AdjacencyList graf2(IloscWierzcholkow,IloscKrawedzi);
 	VertexList::Iterator beginV = graf2.vertices().begin();
@@ -68,19 +72,55 @@ int main()
 		for (unsigned j = 0; j < IloscWierzcholkow; j++)
 			if (graf.MacierzSasiedztwa[i][j] != NULL)
 			{
-				std::cout.width(2);
-				std::cout <<1;
+				//std::cout.width(2);
+				//std::cout << graf.MacierzSasiedztwa[i][j]->vertex[0]->position << " -> " << graf.MacierzSasiedztwa[i][j]->vertex[1]->position << " ";
+				std::cout << graf.MacierzSasiedztwa[i][j] << " ";
 			}
 			else
 			{
-				std::cout.width(2);
-				std::cout << 0;
+				//std::cout.width(2);
+				std::cout << " 0 ";
 			}
 		std::cout << std::endl;
 	}
 	graf.insertVertex(10);
 	std::cout << std::endl << "Ilosc wierzcholkow= " << graf.vertices().size() << ", n= " << graf.n << std::endl;
 	std::cout << "Ilosc krawedzi= " << graf.edges().size() << ", m= " << graf.m << std::endl;
+	VertexMList::Iterator begin = graf.vertices().begin();
+	kolejkaV.insert(*begin);
+	kolejkaV.insert(*(++begin));
+	kolejkaV.insert(*(++begin));
+	kolejkaV.insert(*(++begin));
+	kolejkaV.insert(*(++begin));
+	std::cout << "kolejka min=" << kolejkaV.min().index << ",x=  "<<kolejkaV.min().x << std::endl;
+	kolejkaV.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaV.min().index << ",x=  " << kolejkaV.min().x << std::endl;
+	kolejkaV.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaV.min().index << ",x=  " << kolejkaV.min().x << std::endl;
+	kolejkaV.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaV.min().index << ",x=  " << kolejkaV.min().x << std::endl;
+	kolejkaV.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaV.min().index << ",x=  " << kolejkaV.min().x << std::endl;
+
+	EdgeMList::Iterator begina = graf.edges().begin();
+	kolejkaE.insert(*begina);
+	kolejkaE.insert(*(++begina));
+	kolejkaE.insert(*(++begina));
+	kolejkaE.insert(*(++begina));
+	kolejkaE.insert(*(++begina));
+	std::cout << "kolejka min=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
+	kolejkaE.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
+	kolejkaE.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
+	kolejkaE.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
+	kolejkaE.removeMin();
+	std::cout << "kolejka min po removeMin=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
+	
+	std::cout<<Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).n;
+	std::cout << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).m;
+
 	std::cout << std::endl << "Gites\n";
 	std::cin.ignore();
 	
