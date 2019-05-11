@@ -18,6 +18,7 @@ int main()
 	ListPriorityQueue<EdgeMList, EdgeM, int>  kolejkaE;
 	AdjacencyMatrix graf(IloscWierzcholkow);
 	AdjacencyList graf2(IloscWierzcholkow,IloscKrawedzi);
+	VertexMList ListaTestowa1, ListaTestowa2;
 	VertexList::Iterator beginV = graf2.vertices().begin();
 	VertexMList::Iterator beginM = graf.vertices().begin();
 	std::cout << "Lista sasiedztwa: " << std::endl;
@@ -118,9 +119,25 @@ int main()
 	kolejkaE.removeMin();
 	std::cout << "kolejka min po removeMin=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
 	
-	std::cout<<Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).n;
-	std::cout << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).m;
+	//std::cout << std::endl << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).n << std::endl;
+	std::cout << std::endl << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).m << std::endl;
 
+	/* TEST LISTY
+	ListaTestowa1.insertBack(*graf.vertices().begin());
+	ListaTestowa2.insertBack(*(++(++graf.vertices().begin())));
+
+	Merge(ListaTestowa1, ListaTestowa2);
+
+	VertexMList::Iterator ListaTestowa1Iterator = ListaTestowa1.begin();
+	VertexMList::Iterator ListaTestowa2Iterator = ListaTestowa2.begin();
+	for (unsigned i = 0; i < ListaTestowa1.size(); i++)
+	{
+		std::cout << "Lista Testowa1: " << i << ": " << ListaTestowa1Iterator.operator*().index << ", x=" << ListaTestowa1Iterator.operator*().x << std::endl;
+		++ListaTestowa1Iterator;
+	}
+	
+	std::cout << "Lista Testowa2: " << ListaTestowa2Iterator.operator*().index << ", x=" << ListaTestowa2Iterator.operator*().x << std::endl;
+	*/
 	std::cout << std::endl << "Gites\n";
 	std::cin.ignore();
 	
