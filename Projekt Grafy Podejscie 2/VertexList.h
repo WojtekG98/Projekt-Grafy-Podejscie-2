@@ -11,6 +11,7 @@ struct Vertex {
 	Elem x;
 	Vertex* position;//zmienic na VertexList::Iterator* position;!!!!
 	VertexList* IncidenceCollection;
+	unsigned index;
 };
 
 class VertexList {										//node-based list

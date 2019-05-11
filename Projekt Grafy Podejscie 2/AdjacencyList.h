@@ -95,6 +95,7 @@ void AdjacencyList::insertVertex(Elem o)
 	Vertex v;
 	v.IncidenceCollection = new VertexList;
 	v.x = o;
+	v.index = IW;
 	//std::cout <<"insertvertex: "<< &AdList[IW] << std::endl;
 	v.IncidenceCollection = &AdList[IW];
 	V.insertBack(v);

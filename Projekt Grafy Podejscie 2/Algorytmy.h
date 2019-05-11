@@ -68,7 +68,7 @@ Graph Kruskal(Graph Graf, unsigned IloscWierzcholkow, unsigned IloscKrawedzi)
 		std::cout << "C[" << i << "].size()=" << C[i].size() << std::endl;
 	std::cout << "--------------------------\n";
 	//while (T.IK < (IloscWierzcholkow - 1))
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+	for (unsigned i = 1; i < IloscWierzcholkow; i++)
 	{
 		if (!Q.empty())
 		{

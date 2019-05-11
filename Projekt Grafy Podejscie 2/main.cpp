@@ -120,7 +120,10 @@ int main()
 	std::cout << "kolejka min po removeMin=" << kolejkaE.min().position << ",x=  " << kolejkaE.min().x << std::endl;
 	
 	//std::cout << std::endl << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).n << std::endl;
+	std::cout << "MacierzSasiedztwa:" << std::endl;
 	std::cout << std::endl << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow, IloscKrawedzi).m << std::endl;
+	std::cout << "ListaSasiedztwa:" << std::endl;
+	std::cout << std::endl << Kruskal<AdjacencyList, EdgeList, VertexList, Edge, Vertex>(graf2, IloscWierzcholkow, IloscKrawedzi).m << std::endl;
 
 	/* TEST LISTY
 	ListaTestowa1.insertBack(*graf.vertices().begin());
