@@ -67,7 +67,8 @@ Graph Kruskal(Graph Graf, unsigned IloscWierzcholkow, unsigned IloscKrawedzi)
 	for (unsigned i = 0; i < IloscWierzcholkow; i++)
 		std::cout << "C[" << i << "].size()=" << C[i].size() << std::endl;
 	std::cout << "--------------------------\n";
-	while (T.IK < (IloscWierzcholkow - 1))
+	//while (T.IK < (IloscWierzcholkow - 1))
+	for (unsigned i = 0; i < IloscWierzcholkow; i++)
 	{
 		if (!Q.empty())
 		{
@@ -77,7 +78,7 @@ Graph Kruskal(Graph Graf, unsigned IloscWierzcholkow, unsigned IloscKrawedzi)
 			//{
 			T.insertEdge(u, v, Q.min().x);
 			std::cout << "BEDZIE MERGE\n";
-			Merge(C[v.index], C[u.index]);
+			Merge(C[0], C[i]);
 			//}
 			Q.removeMin();
 		}
