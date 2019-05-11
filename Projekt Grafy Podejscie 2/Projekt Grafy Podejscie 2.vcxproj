@@ -119,11 +119,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdjacencyList.h" />
+    <ClInclude Include="AdjacencyMatrix.h" />
     <ClInclude Include="EdgeList.h" />
+    <ClInclude Include="EdgeMList.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="listtemplate.h" />
     <ClInclude Include="TheEdgeListStructure.h" />
     <ClInclude Include="VertexList.h" />
+    <ClInclude Include="VertexMList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

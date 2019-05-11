@@ -3,7 +3,8 @@
 #define ADJACENCYLIST
 #include"EdgeList.h"
 #include"VertexList.h"
-
+#include <ctime> 
+#include <cstdlib>
 
 class AdjacencyList {
 public:
@@ -15,6 +16,7 @@ public:
 	EdgeList E;
 	VertexList *AdList;
 public:
+	AdjacencyList(unsigned IloscWierzcholkow);
 	AdjacencyList(unsigned IloscWierzcholkow, unsigned IloscKrawedzi);
 	Vertex** endVertices(Edge &e);
 	Vertex opposite(Vertex &v, Edge &e);
@@ -29,13 +31,51 @@ public:
 	EdgeList edges();
 };
 
-AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow, unsigned IloscKrawedzi)
+AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow)
 {
 	n = IloscWierzcholkow;
-	m = IloscKrawedzi;
 	AdList = new VertexList[IloscWierzcholkow];
 	//for (unsigned i=0; i < IloscWierzcholkow; i++)
 		//std::cout << "konstruktor: " << &AdList[i] << std::endl;
+}
+
+AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow, unsigned IloscKrawedzi)
+{
+	n = IloscWierzcholkow;
+	AdList = new VertexList[IloscWierzcholkow];
+
+	srand(time(0));
+	int *visited; // to mark used random numbers. Let all of the values be 0 initially.
+	visited = new int[n];
+	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+		visited[i] = 0;
+
+	for (unsigned i=0; i < IloscWierzcholkow; )
+	{
+		int num = rand() % IloscWierzcholkow;
+		// check if num has already been generated
+		if (visited[num] == 0)
+		{
+			// now mark it as used
+			visited[num] = 1;
+			insertVertex(num);
+			i++;
+		}
+	}
+
+	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+		visited[i] = 0;
+	VertexList::Iterator end = --vertices().end(), begin = vertices().begin();
+	for (unsigned i = 0; i < IloscKrawedzi; i++)
+	{
+		int num = rand() % IloscKrawedzi;
+		if (visited[num] == 0 )
+		{
+			insertEdge(*begin, *end, num);
+			++begin;
+			--end;
+		}
+	}
 }
 
 Vertex** AdjacencyList::endVertices(Edge &e)
@@ -66,21 +106,21 @@ void AdjacencyList::insertVertex(Elem o)
 void AdjacencyList::insertEdge(Vertex &v, Vertex &w, Elem o)
 {
 	Edge e;
-	e.x = o;
-	//std::wcout << "v.x: " << v.x << std::endl;
-	e.vertex[0] = &v;
-	//std::wcout << "w.x: " << w.x << std::endl;
-	e.vertex[1] = &w;
-	v.IncidenceCollection->insertBack(w);
-	//std::wcout << "Ilosc sasiadow: " << v.IncidenceCollection->size() << " wierzcholka "<<v.x<<" : " << --v.IncidenceCollection->end().operator*().x << std::endl;
-	w.IncidenceCollection->insertBack(v);
-	//std::wcout << "Ilosc sasiadow: " << w.IncidenceCollection->size() << "Sasiad " << w.x << " : " << --w.IncidenceCollection->end().operator*().x << std::endl;
-	e.IncidenceCollection[0] = v.IncidenceCollection;
-	e.IncidenceCollection[1] = w.IncidenceCollection;
-	E.insertBack(e);
-	(--E.end()).operator*().position = &(*(--E.end()));
-	e.position = &(*(--E.end()));
-	m++;
+	if (&w != &v)
+	{
+		e.x = o;
+		e.vertex[0] = &v;
+		e.vertex[1] = &w;
+		v.IncidenceCollection->insertBack(w);
+		w.IncidenceCollection->insertBack(v);
+		e.IncidenceCollection[0] = v.IncidenceCollection;
+		e.IncidenceCollection[1] = w.IncidenceCollection;
+		E.insertBack(e);
+		(--E.end()).operator*().position = &(*(--E.end()));
+		e.position = &(*(--E.end()));
+		m++;
+		IK++;
+	}
 }
 
 void AdjacencyList::replace(Vertex v, Elem w)
