@@ -28,17 +28,9 @@ void ListPriorityQueue< lista, E, C >::insert(const E& e) {
 	//std::cout << p.operator*().index << std::endl;
 	
 	while (p != L.end() && e.x > p.operator*().x){
-		//std::cout << "while\n";
-		//if (e.x > p.operator*().x)
-		//{
-			//std::cout << "if\n";
 	 		++p;
-		//}		
 	}
-	
 	L.insert(p, e);
-	//std::cout << p.operator*().index << std::endl;
-	//std::cout << L.begin().operator*().index << std::endl;
 }
 
 template <typename lista, typename E, typename C >

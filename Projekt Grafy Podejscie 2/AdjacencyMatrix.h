@@ -15,7 +15,7 @@ public:
 	EdgeM ***MacierzSasiedztwa;
 public:
 	AdjacencyMatrix(unsigned IloscWierzcholkow);
-	AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned IloscKrawedzi);
+	AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned GestoscGrafu);
 	void insertVertex(Elem o);
 	void insertEdge(VertexM &v, VertexM &w, Elem o);
 	void removeVertex(VertexM v);
@@ -38,7 +38,18 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow)
 	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
 		for (unsigned int j = 0; j < IloscWierzcholkow; j++)
 			MacierzSasiedztwa[i][j] = NULL;
-	
+}
+
+AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned GestoscGrafu)
+{
+	n = IloscWierzcholkow;
+	MacierzSasiedztwa = new EdgeM**[IloscWierzcholkow];
+	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
+		MacierzSasiedztwa[i] = new EdgeM*[IloscWierzcholkow];
+	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
+		for (unsigned int j = 0; j < IloscWierzcholkow; j++)
+			MacierzSasiedztwa[i][j] = NULL;
+
 	int *visited;
 	visited = new int[n];
 	for (unsigned i = 0; i < IloscWierzcholkow; i++)
@@ -56,19 +67,19 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow)
 	}
 	//for (unsigned i = 0; i < IloscWierzcholkow; i++)
 		//insertVertex(i);
-	
+
 	for (unsigned i = 0; i < IloscWierzcholkow; i++)
 		visited[i] = 0;
 	VertexMList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
 	for (unsigned i = 0; i < IloscWierzcholkow; i++)
 	{
-		for (unsigned j = 0; j < IloscWierzcholkow - (i+1) ; )
+		for (unsigned j = 0; j < IloscWierzcholkow - (i + 1); )
 		{
 			int num = rand() % IloscWierzcholkow;
 			if (visited[num] == 0)
 			{
 				insertEdge(*begin, *begin2, num);
-				if (j !=IloscWierzcholkow-1)
+				if (j != IloscWierzcholkow - 1)
 					++begin2;
 				j++;
 			}
@@ -79,28 +90,6 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow)
 			++begin2;
 	}
 	m = IK;
-}
-
-AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned IloscKrawedzi)
-{
-	n = IloscWierzcholkow;
-	m = IloscKrawedzi;
-	MacierzSasiedztwa = new EdgeM**[IloscWierzcholkow];
-	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
-		MacierzSasiedztwa[i] = new EdgeM*[IloscWierzcholkow];
-	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
-		for (unsigned int j = 0; j < IloscWierzcholkow; j++)
-			MacierzSasiedztwa[i][j] = NULL;
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
-		insertVertex(i);
-	VertexMList::Iterator end = --vertices().end(), begin = vertices().begin();
-	for (unsigned i = 0; i < IloscKrawedzi; i++)
-	{
-		insertEdge(*begin, *end, i);
-		++begin;
-		if(i<IloscWierzcholkow-1)
-			--end;
-	}
 }
 
 
