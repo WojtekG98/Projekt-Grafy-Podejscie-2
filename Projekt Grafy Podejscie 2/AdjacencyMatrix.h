@@ -78,7 +78,7 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned GestoscGra
 				int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
 				if (visited[num] == 0)
 				{
-					visited[num] = 1;
+					//visited[num] = 1;
 					insertEdge(*begin, *begin2, num);
 					if (j != IloscWierzcholkow - 1)
 						++begin2;
@@ -104,7 +104,7 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned GestoscGra
 				int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
 				if (visited[num] == 0)
 				{
-					visited[num] = 1;
+					//visited[num] = 1;
 					insertEdge(*begin, *begin2, num);
 					j++;
 				}
