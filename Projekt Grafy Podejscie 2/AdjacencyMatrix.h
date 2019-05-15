@@ -43,16 +43,16 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow)
 AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned GestoscGrafu)
 {
 	n = IloscWierzcholkow;
+	srand(time(0));
 	MacierzSasiedztwa = new EdgeM**[IloscWierzcholkow];
 	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
 		MacierzSasiedztwa[i] = new EdgeM*[IloscWierzcholkow];
 	for (unsigned int i = 0; i < IloscWierzcholkow; i++)
 		for (unsigned int j = 0; j < IloscWierzcholkow; j++)
 			MacierzSasiedztwa[i][j] = NULL;
-
 	int *visited;
-	visited = new int[n];
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+	visited = new int[IloscWierzcholkow*IloscWierzcholkow];
+	for (unsigned i = 0; i < IloscWierzcholkow*IloscWierzcholkow; i++)
 		visited[i] = 0;
 
 	for (unsigned i = 0; i < IloscWierzcholkow; )
@@ -65,31 +65,75 @@ AdjacencyMatrix::AdjacencyMatrix(unsigned IloscWierzcholkow, unsigned GestoscGra
 			i++;
 		}
 	}
-	//for (unsigned i = 0; i < IloscWierzcholkow; i++)
-		//insertVertex(i);
 
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
-		visited[i] = 0;
-	VertexMList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+	if (GestoscGrafu == 100)
 	{
-		for (unsigned j = 0; j < IloscWierzcholkow - (i + 1); )
+		for (unsigned i = 0; i < IloscWierzcholkow; i++)
+			visited[i] = 0;
+		VertexMList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
+		for (unsigned i = 0; i < IloscWierzcholkow; i++)
 		{
-			int num = rand() % IloscWierzcholkow;
+			for (unsigned j = 0; j < IloscWierzcholkow - (i + 1); )
+			{
+				int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
+				if (visited[num] == 0)
+				{
+					visited[num] = 1;
+					insertEdge(*begin, *begin2, num);
+					if (j != IloscWierzcholkow - 1)
+						++begin2;
+					j++;
+				}
+			}
+			++begin;
+			begin2 = begin;
+			if (i != IloscWierzcholkow - 1)
+				++begin2;
+		}
+		m = IK;
+	}
+	else if (GestoscGrafu < 100)
+	{
+		for (unsigned i = 0; i < IloscWierzcholkow*IloscWierzcholkow; i++)
+			visited[i] = 0;
+		VertexMList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
+		for (unsigned i = 0; i < IloscWierzcholkow; i++)
+		{
+			for (unsigned j = 0; j < IloscWierzcholkow - (i + 1); )
+			{
+				int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
+				if (visited[num] == 0)
+				{
+					visited[num] = 1;
+					insertEdge(*begin, *begin2, num);
+					j++;
+				}
+			}
+			++begin;
+			begin2 = begin;
+			++begin2;
+		}
+		begin = vertices().begin(), begin2 = ++(++vertices().begin());
+		for (unsigned u = 0; u < IloscWierzcholkow; u++)
+			visited[u] = 0;
+		while (200 * E.size() / (V.size()*(V.size() - 1)) < GestoscGrafu)
+		{
+			int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
 			if (visited[num] == 0)
 			{
+				//std::cout << begin.operator*().index << "<->" << begin2.operator*().index << ":" << num << std::endl;
 				insertEdge(*begin, *begin2, num);
-				if (j != IloscWierzcholkow - 1)
-					++begin2;
-				j++;
+				++begin2;
+				m = IK;
+			}
+			if (begin2 == vertices().end())
+			{
+				++begin;
+				begin2 = begin;
+				++(++begin2);
 			}
 		}
-		++begin;
-		begin2 = begin;
-		if (i != IloscWierzcholkow - 1)
-			++begin2;
 	}
-	m = IK;
 }
 
 

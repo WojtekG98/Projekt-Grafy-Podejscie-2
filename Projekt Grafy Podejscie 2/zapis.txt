@@ -1,1 +1,1 @@
-Czas w milisekundach : 1021112 ms
+Czas w milisekundach : 38 ms

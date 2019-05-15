@@ -33,10 +33,7 @@ public:
 
 AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow)
 {
-	//n = IloscWierzcholkow;
 	AdList = new VertexList[IloscWierzcholkow];
-	//for (unsigned i=0; i < IloscWierzcholkow; i++)
-		//std::cout << "konstruktor: " << &AdList[i] << std::endl;
 }
 
 AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow,unsigned GestoscGrafu)
@@ -45,8 +42,8 @@ AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow,unsigned GestoscGrafu)
 
 	srand(time(0));
 	int *visited; // to mark used random numbers. Let all of the values be 0 initially.
-	visited = new int[IloscWierzcholkow];
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+	visited = new int[IloscWierzcholkow*IloscWierzcholkow];
+	for (unsigned i = 0; i < IloscWierzcholkow*IloscWierzcholkow; i++)
 		visited[i] = 0;
 
 	for (unsigned i=0; i < IloscWierzcholkow; )
@@ -61,27 +58,68 @@ AdjacencyList::AdjacencyList(unsigned IloscWierzcholkow,unsigned GestoscGrafu)
 			i++;
 		}
 	}
-
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
-		visited[i] = 0;
-	VertexList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
-	for (unsigned i = 0; i < IloscWierzcholkow; i++)
+	if (GestoscGrafu == 100)
 	{
-		for (unsigned j = 0; j < IloscWierzcholkow - (i + 1); )
+		for (unsigned i = 0; i < IloscWierzcholkow; i++)
+			visited[i] = 0;
+		VertexList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
+		for (unsigned i = 0; i < IloscWierzcholkow; i++)
 		{
-			int num = rand() % IloscWierzcholkow;
+			for (unsigned j = 0; j < IloscWierzcholkow - (i + 1); )
+			{
+				int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
+				if (visited[num] == 0)
+				{
+					visited[num] = 1;
+					insertEdge(*begin, *begin2, num);
+					if (j != IloscWierzcholkow - 1)
+						++begin2;
+					j++;
+				}
+			}
+			++begin;
+			begin2 = begin;
+			if (i != IloscWierzcholkow - 1)
+				++begin2;
+		}
+	}
+	else if (GestoscGrafu < 100)
+	{
+		for (unsigned i = 0; i < IloscWierzcholkow*IloscWierzcholkow; i++)
+			visited[i] = 0;
+		VertexList::Iterator begin = vertices().begin(), begin2 = ++vertices().begin();
+		while(begin!=--vertices().end())
+		{
+			int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
 			if (visited[num] == 0)
 			{
+				visited[num] = 1;
 				insertEdge(*begin, *begin2, num);
-				if (j != IloscWierzcholkow - 1)
-					++begin2;
-				j++;
+			}
+			++begin;
+			begin2 = begin;
+			++begin2;
+		}
+		begin = vertices().begin(), begin2 = ++(++vertices().begin());
+		for (unsigned u = 0; u < IloscWierzcholkow; u++)
+			visited[u] = 0;
+		while (200 * E.size() / (V.size()*(V.size() - 1)) < GestoscGrafu)
+		{
+			int num = rand() % (IloscWierzcholkow*IloscWierzcholkow);
+			if (visited[num] == 0)
+			{
+				//std::cout << begin.operator*().index << "<->" << begin2.operator*().index << ":" << num << std::endl;
+				insertEdge(*begin, *begin2, num);
+				++begin2;
+				m = IK;
+			}
+			if (begin2 == vertices().end())
+			{
+				++begin;
+				begin2 = begin;
+				++(++begin2);
 			}
 		}
-		++begin;
-		begin2 = begin;
-		if (i != IloscWierzcholkow - 1)
-			++begin2;
 	}
 }
 
@@ -103,7 +141,6 @@ void AdjacencyList::insertVertex(Elem o)
 	v.IncidenceCollection = new VertexList;
 	v.x = o;
 	v.index = IW;
-	//std::cout <<"insertvertex: "<< &AdList[IW] << std::endl;
 	v.IncidenceCollection = &AdList[IW];
 	V.insertBack(v);
 	(--V.end()).operator*().position= &(*(--V.end()));
