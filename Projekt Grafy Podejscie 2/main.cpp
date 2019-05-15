@@ -1,4 +1,7 @@
 #include<iostream>
+#include<chrono>
+#include<conio.h>
+#include<fstream>
 #include"list.h"
 #include"EdgeList.h"
 #include"EdgeMList.h"
@@ -9,11 +12,12 @@
 #include"ListPriorityQueue.h"
 #include"Algorytmy.h"
 
+using namespace std;
+
 int main()
 {
-	unsigned IloscWierzcholkow=10;
+	unsigned IloscWierzcholkow=1000;
 	unsigned GestoscGrafu = 100;
-
 	ListPriorityQueue<VertexMList, VertexM, int>  kolejkaV;
 	ListPriorityQueue<EdgeMList, EdgeM, int>  kolejkaE;
 	AdjacencyMatrix graf(IloscWierzcholkow,GestoscGrafu);
@@ -21,6 +25,8 @@ int main()
 	VertexMList ListaTestowa1, ListaTestowa2;
 	VertexList::Iterator beginV = graf2.vertices().begin();
 	VertexMList::Iterator beginM = graf.vertices().begin();
+	fstream zapis;
+	zapis.open("zapis.txt", ios::out);
 	/*
 	std::cout << "Lista sasiedztwa: " << std::endl;
 	for (unsigned i = 0; i < IloscWierzcholkow; i++)
@@ -82,17 +88,24 @@ int main()
 			}
 		std::cout << std::endl;
 	}
+	*/
+	//std::cout << std::endl << "Ilosc wierzcholkow= " << graf.vertices().size() << ", n= " << graf.n << std::endl;
+	//std::cout << "Ilosc krawedzi= " << graf.edges().size() << ", m= " << graf.m << std::endl;
 
-	std::cout << std::endl << "Ilosc wierzcholkow= " << graf.vertices().size() << ", n= " << graf.n << std::endl;
-	std::cout << "Ilosc krawedzi= " << graf.edges().size() << ", m= " << graf.m << std::endl;
 
-
-	std::cout << "MacierzSasiedztwa:" << std::endl;
-	std::cout << std::endl << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow).IK << std::endl;
-	std::cout << "ListaSasiedztwa:" << std::endl;
+	//std::cout << "MacierzSasiedztwa:" << std::endl;
+	auto start = chrono::steady_clock::now();
+	//std::cout << std::endl << Kruskal<AdjacencyMatrix, EdgeMList, VertexMList, EdgeM, VertexM>(graf, IloscWierzcholkow).IK << std::endl;
 	std::cout << std::endl << Kruskal<AdjacencyList, EdgeList, VertexList, Edge, Vertex>(graf2, IloscWierzcholkow).IK << std::endl;
+	auto end = chrono::steady_clock::now();
 
+	//std::cout << "ListaSasiedztwa:" << std::endl;
+	
+	
 	std::cout << std::endl << "Gites\n";
-	std::cin.ignore();
+	zapis << "Czas w milisekundach : "
+		<< chrono::duration_cast<chrono::milliseconds>(end - start).count()
+		<< " ms" << endl;
+	//std::cin.ignore();
 	
 }
