@@ -16,8 +16,8 @@ using namespace std;
 
 int main()
 {
-	unsigned IloscWierzcholkow=1000;
-	unsigned GestoscGrafu = 50;
+	unsigned IloscWierzcholkow=100;
+	unsigned GestoscGrafu = 25;
 	std::cout << "Tworzenie Macierzy:\n\n";
 	AdjacencyMatrix macierz(IloscWierzcholkow,GestoscGrafu);
 	std::cout << "Tworzenie Listy:\n\n";
